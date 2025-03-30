@@ -1,0 +1,116 @@
+syntax = 'proto3';
+
+package api.v1;
+//option go_package = "./proto/gen/api/v1";
+option go_package = "hexagonal-go-grpc/proto/gen/api/v1";
+
+message Customer {
+  int32 id = 1;
+  string name = 2;
+  string email = 3;
+  string phone = 4;
+  string gender = 5;
+  bool isActive = 6;
+  int64 createdAt = 7;
+  int64 updatedAt = 8;
+}
+
+message CustomerRequest {
+  int32 id = 1;
+}
+
+message CustomerResponse {
+  int32 statusCode = 1;
+  string message = 2;
+  Customer data = 3;
+}
+
+message CustomerListRequest {
+  repeated int32 ids = 1;
+  string search = 2;
+}
+
+message CustomerListResponse {
+  int32 statusCode = 1;
+  string message = 2;
+  repeated Customer data = 3;
+}
+
+message CustomerCreateRequest {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  string gender = 4;
+  bool is_active = 5;
+}
+
+message CustomerCreateResponse {
+  int32 statusCode = 1;
+  string message = 2;
+  Customer data = 3;
+}
+
+message CustomerUpdateRequest {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  string gender = 4;
+  bool is_active = 5;
+}
+
+message CustomerUpdateResponse {
+  int32 statusCode = 1;
+  string message = 2;
+  Customer data = 3;
+}
+
+message CustomerDeleteRequest {
+  int32 id = 1;
+}
+
+message CustomerDeleteResponse {
+  int32 statusCode = 1;
+  string message = 2;
+}
+
+message CustomerActivateRequest {
+  int32 id = 1;
+}
+
+message CustomerActivateResponse {
+  int32 statusCode = 1;
+  string message = 2;
+}
+
+message CustomerDeactivateRequest {
+  int32 id = 1;
+}
+
+message CustomerDeactivateResponse {
+  int32 statusCode = 1;
+  string message = 2;
+}
+
+message CustomerRegisterRequest {
+  string name = 1;
+  string email = 2;
+  string phone = 3;
+  string gender = 4;
+}
+
+message CustomerRegisterResponse {
+  int32 statusCode = 1;
+  string message = 2;
+  Customer data = 3;
+}
+
+service CustomerMethod {
+  rpc GetList (CustomerListRequest) returns (CustomerListResponse) {}
+  rpc GetById (CustomerRequest) returns (CustomerResponse) {}
+  rpc Create (CustomerCreateRequest) returns (CustomerCreateResponse) {}
+  rpc Update (CustomerUpdateRequest) returns (CustomerUpdateResponse) {}
+  rpc DeleteById (CustomerDeleteRequest) returns (CustomerDeleteResponse) {}
+  rpc ActivateById (CustomerActivateRequest) returns (CustomerActivateResponse) {}
+  rpc DeactivateById (CustomerDeactivateRequest) returns (CustomerDeactivateResponse) {}
+  rpc Register (CustomerRegisterRequest) returns (CustomerRegisterResponse) {}
+}
