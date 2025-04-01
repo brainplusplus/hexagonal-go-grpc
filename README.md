@@ -1,9 +1,5 @@
 # Hexagonal Architecture Go Grpc Template
 
-## Preface
-I built this Hexagonal Architecture template in Golang based on my interest in a job listing that required several specific tech stacks. This project serves as both a learning experience and a practical implementation of the architecture pattern.
-![Job Posting](./screenshots/job_posting.png)
-
 ## Tech Stack
 - **Golang** - Main programming language
 - **Golang-Migrate** - Utility for database migration
@@ -54,7 +50,11 @@ git config --global url."git@github.com:".insteadOf "https://github.com/"
 ```
 
 ## Build & Run
-To run this app, run the following command:
+Makesure, postgres server, otel server is running, you can do it with
+```
+make docker-compose-up-wo-ap
+```
+After that, to run this app, run the following command:
 ```
 make run
 ```

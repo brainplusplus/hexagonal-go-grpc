@@ -141,11 +141,19 @@ run:
 .PHONY: docker-compose-up
 docker-compose-up:
 ifeq ($(OS), Windows)
-	@set "OTEL_CONFIG_PATH=$(OTEL_CONFIG_PATH)" && set "PROMETHEUS_CONFIG_PATH=$(PROMETHEUS_CONFIG_PATH)" && docker-compose up -d
+	@set "OTEL_CONFIG_PATH=$(OTEL_CONFIG_PATH)" && set "PROMETHEUS_CONFIG_PATH=$(PROMETHEUS_CONFIG_PATH)" && docker-compose -p hexagonal_project up -d
+else
+	OTEL_CONFIG_PATH=$(OTEL_CONFIG_PATH) PROMETHEUS_CONFIG_PATH=$(PROMETHEUS_CONFIG_PATH) docker-compose up -d
+endif
+
+.PHONY: docker-compose-up-wo-app
+docker-compose-up-wo-app:
+ifeq ($(OS), Windows)
+	@set "OTEL_CONFIG_PATH=$(OTEL_CONFIG_PATH)" && set "PROMETHEUS_CONFIG_PATH=$(PROMETHEUS_CONFIG_PATH)" && docker-compose -p hexagonal_project -f docker-compose-without-app.yml up -d
 else
 	OTEL_CONFIG_PATH=$(OTEL_CONFIG_PATH) PROMETHEUS_CONFIG_PATH=$(PROMETHEUS_CONFIG_PATH) docker-compose up -d
 endif
 
 .PHONY: docker-compose-down
 docker-compose-down:
-	docker-compose down
+	docker-compose -p hexagonal_project down
